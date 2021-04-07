@@ -83,8 +83,8 @@ Befehl | Parameter | Beschreibung
 * 1 Befehl pro Zeile
 * Freizeilen erlaubt
 * Zeilenkommentar beginnend mit `#`
-* Befehl ist immer ein STR und mit einem Freizeichen ` ` von der Übergabe (immer INT / FLOAT) getrennt
-* Nach der Übergabe können mit (mindestens einem Freizeichen ` ` getrennt) Kommentare ergänzt werden
+* Befehl ist immer ein STR und mit einem Freizeichen ` `&nbsp;von der Übergabe (immer INT / FLOAT) getrennt
+* Nach der Übergabe können mit (mindestens einem Freizeichen ` `&nbsp;getrennt) Kommentare ergänzt werden
 * INT können zwischen zwei Ziffern maximal einen Bodenstrich `_` enthalten
 * INT können beliebig viele Nullen `0` enthalten (auch davor)
 
