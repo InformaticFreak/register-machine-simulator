@@ -6,9 +6,11 @@ A simulator for a register machine as an code interpreter written in Python.
 py rm_interpreter.py [absolute path to rm file] [optional -p or -w]
 ```
 
-## Deutsche README
+## ToDo
 
-- [ ] __**english readme**__
+* [ ] __**english readme**__
+
+## Deutsche README
 
 ### Alle 29 Befehle und deren Funktion nach Kategorien sortiert
 
@@ -70,11 +72,11 @@ HLT		99			{Programm beenden}
 
 - 1 Befehl pro Zeile
 - Freizeilen erlaubt
-- Zeilenkommentar beginnend mit "#"
-- Befehl ist immer ein STR und mit einem Freizeichen " " von der Übergabe (immer INT / FLOAT) getrennt
-- Nach der Übergabe können mit (mindestens einem Freizeichen " " getrennt) Kommentare ergänzt werden
-- INT können zwischen zwei Ziffern maximal einen Bodenstrich "_" enthalten
-- INT können beliebig viele Nullen "0" enthalten (auch davor)
+- Zeilenkommentar beginnend mit `#`
+- Befehl ist immer ein STR und mit einem Freizeichen ` ` von der Übergabe (immer INT / FLOAT) getrennt
+- Nach der Übergabe können mit (mindestens einem Freizeichen ` ` getrennt) Kommentare ergänzt werden
+- INT können zwischen zwei Ziffern maximal einen Bodenstrich `_` enthalten
+- INT können beliebig viele Nullen `0` enthalten (auch davor)
 
 ### Verwendung über Konsole/Terminal
 
@@ -86,15 +88,15 @@ python rm_interpreter.py [.rm Datei] [optional -p|-w]
 
 [.rm Datei]: Datei mit beschriebenem RM-Assembler Code
 
-[-p|-w]: "-p" zeigt alle Zwischenschritte im Format "STAT: [Akkumulator Inhalt] [Befehlszähler Wert]" an; "-w" pausiert zusätzlich und wartet auf ENTER
+[-p|-w]: `-p` zeigt alle Zwischenschritte im Format `STAT: [Akkumulator Inhalt] [Befehlszähler Wert]` an; `-w` pausiert zusätzlich und wartet auf ENTER
 
 ### Eingaben im Code
 
-Bei "INP: " wird eine Eingabe als INT / FLOAT erwartet
+Bei `INP: ` wird eine Eingabe als INT / FLOAT erwartet
 
 ### Bemerkungen
 
-Der Befehl "HLT 99" terminiert das Programm.
+Der Befehl `HLT 99` terminiert das Programm.
 
-Wenn dieser Befehl nicht spätestens am Ende steht, ensteht ein "IndexOutOfRange" Fehler. Das Programm terminiert trotzdem ...
+Wenn dieser Befehl nicht spätestens am Ende steht, ensteht ein "*IndexOutOfRange*" Fehler. *Das Programm terminiert dann trotzdem ...*
 
