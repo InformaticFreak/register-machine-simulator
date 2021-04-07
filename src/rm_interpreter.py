@@ -27,7 +27,10 @@ class RM:
 		self.__dmem = {}
 		self.__accu = 0
 		self.__cind = 0
-		"""Initialize the command register in two parts. Firstly, the command parameter as an attribute and secondly, the command as a dictionary with all command names as keys and the corresponding method as an item."""
+		"""
+		Initialize the command register in two parts. Firstly, the command parameter as an attribute and secondly, 
+		the command as a dictionary with all command names as keys and the corresponding method as an item.
+		"""
 		self.__cpar = 0
 		self.__creg = {
 			"INI": self.__INI,
@@ -71,7 +74,10 @@ class RM:
 		"""Return the status of the accumulator and the instruction counter"""
 		return (self.__accu, self.__cind)
 	
-	"""All these methods are the implementations for the corresponding instruction name from the instruction register. They change the instruction index, accumulator or data memory depending on the functionality."""
+	"""
+	All these methods are the implementations for the corresponding instruction name from the instruction register.
+	They change the instruction index, accumulator or data memory depending on the functionality.
+	"""
 	def __INI(self):
 		self.__cind += 1
 	def __LDK(self):
