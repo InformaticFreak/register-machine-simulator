@@ -101,7 +101,7 @@ python rm_interpreter.py [.rm Datei] [optional -p|-w]
 
 ### Eingaben im Code
 
-Bei `INP: ` wird eine Eingabe als INT / FLOAT erwartet
+Bei `INP: `&nbsp;wird eine Eingabe als INT / FLOAT erwartet
 
 ### Bemerkungen
 
