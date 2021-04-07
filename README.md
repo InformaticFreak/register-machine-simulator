@@ -96,8 +96,8 @@ python rm_interpreter.py [.rm Datei] [optional -p|-w]
 
 Übergabeparameter
 
-* [.rm Datei]: Datei mit beschriebenem RM-Assembler Code
-* [-p|-w]: `-p` zeigt alle Zwischenschritte im Format `STAT: [Akkumulator Inhalt] [Befehlszähler Wert]` an; `-w` pausiert zusätzlich und wartet auf ENTER
+* [.rm Datei]: Datei mit beschriebenem RM Code
+* [-p|-w]: `-p` zeigt alle Zwischenschritte im Format `STATUS: accu: [Wert im Akkumulator] | cind: [Befehlszähler Index]` an; `-w` pausiert zusätzlich und wartet auf ENTER
 
 ### Eingaben im Code
 
