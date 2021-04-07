@@ -1,10 +1,6 @@
 # register-machine-simulator
 A simulator for a register machine as an code interpreter written in Python.
 
-[one](blob/main/examples/faculty.rm)
-
-[two](examples/faculty.rm)
-
 ## How to use
 ```
 py rm_interpreter.py [absolute path to rm file] [optional -p or -w]
