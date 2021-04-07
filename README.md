@@ -45,7 +45,9 @@ Eingabe, Ausgabe
 ```
 INP		<adresse>	{Eingabe nach <adresse>}
 OUT		<adresse>	{Ausgabe aus <adresse>}
-#Operationen
+```
+Operationen
+```
 ADK		<zahl>		{Addiere <zahl> zu Akku}
 ADA		<adresse>	{Addiere Wert aus <adresse> zu Akku}
 ADP		<adresse>	{Addiere Wert aus Adresse, auf die <adresse> zeigt, zu Akku}
