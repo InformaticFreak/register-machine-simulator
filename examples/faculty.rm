@@ -1,0 +1,53 @@
+
+# Calculate the faculty
+
+# Input of a real number, but requires an positive integer
+INP 01
+
+# Catch input of zero or one
+LDA 01
+JEZ 1_1
+SUK 1
+JEZ 1_1
+
+# Catch input of a negative number
+LDA 01
+JLZ 4_4
+
+# Catch input of a non-integer value
+LDA 01
+STA 03
+ANC 5_5
+LDA 03
+SUK 1
+STA 03
+JGZ 5_5
+JLZ 4_4
+
+# Else save the input in adress 02
+LDA 01
+STA 02
+
+# Calculate the faculty of the input
+ANC 3_3
+LDA 01
+SUK 1
+JEZ 2_2
+STA 01
+MUA 02
+STA 02
+JMP 3_3
+
+# Output adress 01 if input is zero or one
+ANC 1_1
+OUT 01
+HLT 99
+
+# Else the result of the calculation in adress 02 of the faculty is output
+ANC 2_2
+OUT 02
+HLT 99
+
+# Break if wrong input entered
+ANC 4_4
+HLT 99

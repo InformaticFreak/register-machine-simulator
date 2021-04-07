@@ -1,0 +1,69 @@
+
+# Power calculation: x' = x^a
+# (Algorithm for a positive integer a as exponent)
+
+# Save input of basis x to address 01 and exponent a to address 02
+INP 01 #x
+INP 02 #a
+
+# Catch input of a negative number for exponent a (address 02)
+LDA 02
+JLZ 4_4
+
+# Catch input of a non-integer value for exponent a (address 02)
+LDA 02
+STA 04
+ANC 5_5
+LDA 04
+SUK 1
+STA 04
+JGZ 5_5
+JLZ 4_4
+
+# Catch input of zero or one for exponent a (address 02)
+LDA 02
+JEZ 0_0
+SUK 1
+JEZ 1_1
+
+# Copy x (address 01) to x' (address 03)
+LDA 01
+STA 03 #x'
+
+# Decrement value in address 02
+LDA 02
+SUK 1
+STA 02
+
+# Calculate address 01 to the power of address 02
+ANC 3_3
+# x' = x * x'
+LDA 01
+MUA 03
+STA 03
+# a--
+LDA 02
+SUK 1
+STA 02
+# Do while a > 0
+JGZ 3_3
+
+# Show x' (address 03) as result of the calculation
+OUT 03
+HLT 99
+
+# Show one as result for input case of zero for a (address 02)
+ANC 0_0
+LDK 1
+STA 03
+OUT 03
+HLT 99
+
+# Show x (address 01) as result for input cas one for a (address 02)
+ANC 1_1
+OUT 01
+HLT 99
+
+# Break if wrong input entered
+ANC 4_4
+HLT 99
