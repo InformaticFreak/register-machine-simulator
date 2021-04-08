@@ -2,6 +2,7 @@
 # Register Machine Simulator
 
 [![GitHub](https://img.shields.io/github/license/informaticfreak/vectometry)](LICENSE.txt)&nbsp;
+[![Python Version](https://img.shields.io/badge/python-3-blue)](https://www.python.org/downloads/)&nbsp;
 
 A simulator for a simple register machine as an code interpreter written in Python. The register machine language defines 29 different commands for basic input, output and arithmetic operations.
 
