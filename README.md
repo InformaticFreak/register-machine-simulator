@@ -19,7 +19,7 @@ The file `examples/faculty.rm` contains the code for the calculation, click [her
 py rm_interpreter.py ../examples/faculty.rm -p
 ```
 
-So after the start of the program, the program waits with printing `INP: `&nbsp;for the input of a number to calculate its faculty. You can also enter a decimal number or a negative number, but an integer is required. This wrong inputs are intercepted by the register machine program code in [line 13](examples/faculty.rm#L13) and [line 17](examples/faculty.rm#L17). In this case the input number is **3**.
+So after the start of the program, the program waits with printing `INP: `&nbsp;for the input of a number to calculate its faculty. You can also enter a decimal number or a negative number, but an integer is required. This wrong inputs are intercepted by the register machine program code in [line 13](examples/faculty.rm#L13) and [line 17](examples/faculty.rm#L17). In this case the input number is `3`.
 
 ```
 STATUS: accu: 0 | cind: 1
@@ -77,18 +77,18 @@ STATUS: accu: 0.0 | cind: 31
 Program finished
 ```
 
-After the program is finished, the calculated faculty of the input number **3** is **6**. If a wrong number is entered, no output will be printed.
+After the program is finished, the calculated faculty of the input number `3` is `6`. If a wrong number is entered, no output will be printed.
 
 ## Documentation
 
 ### The syntax
 
-* A command is composed of a three character long keyword and a number as parameter separated by a space character ` `
-* A comment starts with an hashtag character `#`&nbsp;at the beginning of a line or behind a command, separated by a space character ` `
+* A command is composed of a three character long keyword and a number as parameter separated by a space character&nbsp;` `
+* A comment starts with an hashtag character&nbsp;`#`&nbsp;at the beginning of a line or behind a command, separated by a space character&nbsp;` `
 * Only one command per line and any number of blank lines are allowed
 * The keywords are not case sensitve
-* A Parameter is always a number, it can contain underscores `_`&nbsp;and any number of zeros `0`, a dot `.`&nbsp;as decimal point works only for constants, inputs and anchor points
-* A program is terminated with the command `HLT 99`, if this command is not in the last line of the program at the latest, it is terminated, but with an error
+* A Parameter is always a number, it can contain underscores&nbsp;`_`&nbsp;and any number of zeros&nbsp;`0`, a dot&nbsp;`.`&nbsp;as decimal point works only for constants, inputs and anchor points
+* A program is terminated with the command&nbsp;`HLT 99`, if this command is not in the last line of the program at the latest, it is terminated, but with an error
 
 ### All 29 commands
 
