@@ -11,7 +11,7 @@ Execute the Python file `rm_interpreter.py` via the console/terminal and as a fi
 py rm_interpreter.py [path] [optional -p or -w]
 ```
 
-## An example: calculation of the faculty of an integer number
+## An example: calculation of the faculty of an integer
 
 The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_interpreter.py` is located in the directors `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `-p`.
 
