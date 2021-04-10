@@ -4,85 +4,84 @@
 [![GitHub](https://img.shields.io/github/license/informaticfreak/vectometry)](LICENSE.txt)&nbsp;
 [![Python Version](https://img.shields.io/badge/python-3-blue)](https://www.python.org/downloads/)&nbsp;
 
-A simulator for a simple register machine as an code interpreter written in Python. The register machine language defines 29 different commands for basic input, output and arithmetic operations.
+A simulator for a simple register machine as an code interpreter written in Python. The register machine language defines 30 different commands for basic input, output and arithmetic operations. See [here](README.md#required-packages) for the required packages.
 
 ## How to use
 
-Execute the Python file `rm_interpreter.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `-p` as second command line parameter to get the status of the accumulator and the instruction counter after each instruction or `-w` for the status and an additional wait for pressing the enter key to continue after each instruction.
+Execute the Python file `rm_interpreter.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `-p` as second command line parameter to get the status of the complete register machine before each instruction or `-w` for the status and an additional wait for pressing the enter key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
 
 ```
-py rm_interpreter.py [path] [optional -p or -w]
+py rm_interpreter.py [path] [optional -p or -w] [optional time]
 ```
 
-## An example: calculation of the faculty of an integer
+### Language markdown for Notepad++
 
-The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_interpreter.py` is located in the directory `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `-p`.
+Append the contents of the [markdown file](rm_markdown.xml) to the file `userDefineLang.xml` in the directory `C:\Users\USERNAME\AppData\Roaming\Notepad++\`. Now select `register machine` in Notepad++ in the `Languages` menu item below.
+
+### An example: calculation of the faculty of an integer
+
+The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_interpreter.py` is located in the directory `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `-p`. After each instruction the program waits 500 milliseconds (0.5 seconds).
 
 ```
-py rm_interpreter.py ../examples/faculty.rm -p
+py rm_interpreter.py ../examples/faculty.rm -p 500
 ```
 
 So after the start of the program, the program waits with printing `INP: `&nbsp;for the input of a number to calculate its faculty. You can also enter a decimal number or a negative number, but an integer is required. This wrong inputs are intercepted by the register machine program code in [line 13](examples/faculty.rm#L13) and [line 17](examples/faculty.rm#L17). In this case the input number is `3`.
 
+While the program is running, the status of the complete register machine is updated after each instruction. The commands are highlighted in the console, the current line is brighter and the instruction counter is right-aligned at the current position.
+
+There is the current status of the complete register machine after the full calculation:
+
 ```
-STATUS: accu: 0 | cind: 1
-INP: 3
-STATUS: accu: 0 | cind: 2
-STATUS: accu: 3.0 | cind: 3
-STATUS: accu: 3.0 | cind: 4
-STATUS: accu: 2.0 | cind: 5
-STATUS: accu: 2.0 | cind: 6
-STATUS: accu: 3.0 | cind: 7
-STATUS: accu: 3.0 | cind: 8
-STATUS: accu: 3.0 | cind: 9
-STATUS: accu: 3.0 | cind: 10
-STATUS: accu: 3.0 | cind: 11
-STATUS: accu: 3.0 | cind: 12
-STATUS: accu: 2.0 | cind: 13
-STATUS: accu: 2.0 | cind: 14
-STATUS: accu: 2.0 | cind: 10
-STATUS: accu: 2.0 | cind: 11
-STATUS: accu: 2.0 | cind: 12
-STATUS: accu: 1.0 | cind: 13
-STATUS: accu: 1.0 | cind: 14
-STATUS: accu: 1.0 | cind: 10
-STATUS: accu: 1.0 | cind: 11
-STATUS: accu: 1.0 | cind: 12
-STATUS: accu: 0.0 | cind: 13
-STATUS: accu: 0.0 | cind: 14
-STATUS: accu: 0.0 | cind: 15
-STATUS: accu: 0.0 | cind: 16
-STATUS: accu: 3.0 | cind: 17
-STATUS: accu: 3.0 | cind: 18
-STATUS: accu: 3.0 | cind: 19
-STATUS: accu: 3.0 | cind: 20
-STATUS: accu: 2.0 | cind: 21
-STATUS: accu: 2.0 | cind: 22
-STATUS: accu: 2.0 | cind: 23
-STATUS: accu: 6.0 | cind: 24
-STATUS: accu: 6.0 | cind: 25
-STATUS: accu: 6.0 | cind: 18
-STATUS: accu: 6.0 | cind: 19
-STATUS: accu: 2.0 | cind: 20
-STATUS: accu: 1.0 | cind: 21
-STATUS: accu: 1.0 | cind: 22
-STATUS: accu: 1.0 | cind: 23
-STATUS: accu: 6.0 | cind: 24
-STATUS: accu: 6.0 | cind: 25
-STATUS: accu: 6.0 | cind: 18
-STATUS: accu: 6.0 | cind: 19
-STATUS: accu: 1.0 | cind: 20
-STATUS: accu: 0.0 | cind: 21
-STATUS: accu: 0.0 | cind: 29
-STATUS: accu: 0.0 | cind: 30
+ Instruction counter  | Program memory       | Data memory          | Accumulator
+----------------------+----------------------+----------------------+----------------------
+ 0                    | INI 0                | 1.0: 1.0             | 0.0
+ 1                    | INP 1.0              | 3.0: 0.0             |
+ 2                    | LDA 1.0              | 2.0: 6.0             |
+ 3                    | JEZ 11.0             |                      |
+ 4                    | SUK 1.0              |                      |
+ 5                    | JEZ 11.0             |                      |
+ 6                    | LDA 1.0              |                      |
+ 7                    | JLZ 44.0             |                      |
+ 8                    | LDA 1.0              |                      |
+ 9                    | STA 3.0              |                      |
+ 10                   | ANC 55.0             |                      |
+ 11                   | LDA 3.0              |                      |
+ 12                   | SUK 1.0              |                      |
+ 13                   | STA 3.0              |                      |
+ 14                   | JGZ 55.0             |                      |
+ 15                   | JLZ 44.0             |                      |
+ 16                   | LDA 1.0              |                      |
+ 17                   | STA 2.0              |                      |
+ 18                   | ANC 33.0             |                      |
+ 19                   | LDA 1.0              |                      |
+ 20                   | SUK 1.0              |                      |
+ 21                   | JEZ 22.0             |                      |
+ 22                   | STA 1.0              |                      |
+ 23                   | MUA 2.0              |                      |
+ 24                   | STA 2.0              |                      |
+ 25                   | JMP 33.0             |                      |
+ 26                   | ANC 11.0             |                      |
+ 27                   | OUT 1.0              |                      |
+ 28                   | HLT 0.0              |                      |
+ 29                   | ANC 22.0             |                      |
+                   30 | OUT 2.0              |                      |
+ 31                   | HLT 0.0              |                      |
+ 32                   | ANC 44.0             |                      |
+ 33                   | HLT 0.0              |                      |
+ 34                   | HLT 99               |                      |
+
 OUT: 6.0
-STATUS: accu: 0.0 | cind: 31
-Program finished
 ```
 
-After the program is finished, the calculated faculty of the input number `3` is `6`. If a wrong number is entered, no output will be printed.
+After a while, the program returns the result as `OUT: 6`; then the program is terminated. If a wrong number is entered, no output will be printed.
 
 ## Documentation
+
+### Required packages
+
+* platform
+* colorama
 
 ### The syntax
 
@@ -90,17 +89,18 @@ After the program is finished, the calculated faculty of the input number `3` is
 * A comment starts with an hashtag character&nbsp;`#`&nbsp;at the beginning of a line or behind a command, separated by a space character&nbsp;` `
 * Only one command per line and any number of blank lines are allowed
 * The keywords are not case sensitve
-* A Parameter is always a number, it can contain underscores&nbsp;`_`&nbsp;and any number of zeros&nbsp;`0`, a dot&nbsp;`.`&nbsp;as decimal point works only for constants, inputs and anchor points
-* A program is terminated with the command&nbsp;`HLT 99`, if this command is not in the last line of the program at the latest, it is terminated, but with an error
+* A Parameter is always a number, it can contain underscores&nbsp;`_`&nbsp;*(but not more than one in a sequence)* and any number of zeros&nbsp;`0`, a dot&nbsp;`.`&nbsp;as decimal point also works
+* A program is terminated with the command&nbsp;`HLT 0`, if this command is not in the last line of the program at the latest, it terminates anyway
 
-### All 29 commands
+### All 30 commands
 
 #### Start and terminate the program
 
 Command | Parameter | Description
 ------- | ---------- | -----------
-`INI` | 00 | No functionality (internal use only)
-`HTL` | 99 | Terminate the program
+`INI` | 0 | No functionality (internal use only)
+`HTL` | 0 | Terminate the program
+`BRK` | 0 | Breakpoint for debugging
 
 #### Load and store values
 
