@@ -74,6 +74,8 @@ There is the current status of the complete register machine after the full calc
 OUT: 6.0
 ```
 
+![Console of the faculty example](console_faculty_example.jpg)
+
 After a while, the program returns the result as `OUT: 6`; then the program is terminated. If a wrong number is entered, no output will be printed.
 
 ## Documentation
