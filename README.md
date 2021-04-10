@@ -32,48 +32,6 @@ While the program is running, the status of the complete register machine is upd
 
 There is the current status of the complete register machine after the full calculation:
 
-```
- Instruction counter  | Program memory       | Data memory          | Accumulator
-----------------------+----------------------+----------------------+----------------------
- 0                    | INI 0                | 1.0: 1.0             | 0.0
- 1                    | INP 1.0              | 3.0: 0.0             |
- 2                    | LDA 1.0              | 2.0: 6.0             |
- 3                    | JEZ 11.0             |                      |
- 4                    | SUK 1.0              |                      |
- 5                    | JEZ 11.0             |                      |
- 6                    | LDA 1.0              |                      |
- 7                    | JLZ 44.0             |                      |
- 8                    | LDA 1.0              |                      |
- 9                    | STA 3.0              |                      |
- 10                   | ANC 55.0             |                      |
- 11                   | LDA 3.0              |                      |
- 12                   | SUK 1.0              |                      |
- 13                   | STA 3.0              |                      |
- 14                   | JGZ 55.0             |                      |
- 15                   | JLZ 44.0             |                      |
- 16                   | LDA 1.0              |                      |
- 17                   | STA 2.0              |                      |
- 18                   | ANC 33.0             |                      |
- 19                   | LDA 1.0              |                      |
- 20                   | SUK 1.0              |                      |
- 21                   | JEZ 22.0             |                      |
- 22                   | STA 1.0              |                      |
- 23                   | MUA 2.0              |                      |
- 24                   | STA 2.0              |                      |
- 25                   | JMP 33.0             |                      |
- 26                   | ANC 11.0             |                      |
- 27                   | OUT 1.0              |                      |
- 28                   | HLT 0.0              |                      |
- 29                   | ANC 22.0             |                      |
-                   30 | OUT 2.0              |                      |
- 31                   | HLT 0.0              |                      |
- 32                   | ANC 44.0             |                      |
- 33                   | HLT 0.0              |                      |
- 34                   | HLT 99               |                      |
-
-OUT: 6.0
-```
-
 ![Console of the faculty example](console_faculty_example.jpg)
 
 After a while, the program returns the result as `OUT: 6`; then the program is terminated. If a wrong number is entered, no output will be printed.
