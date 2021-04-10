@@ -10,6 +10,12 @@ INP 02 #a
 LDA 02
 JLZ 4_4
 
+# Catch input of zero or one for exponent a (address 02)
+LDA 02
+JEZ 0_0
+SUK 1
+JEZ 1_1
+
 # Catch input of a non-integer value for exponent a (address 02)
 LDA 02
 STA 04
@@ -19,12 +25,6 @@ SUK 1
 STA 04
 JGZ 5_5
 JLZ 4_4
-
-# Catch input of zero or one for exponent a (address 02)
-LDA 02
-JEZ 0_0
-SUK 1
-JEZ 1_1
 
 # Copy x (address 01) to x' (address 03)
 LDA 01
@@ -50,20 +50,20 @@ JGZ 3_3
 
 # Show x' (address 03) as result of the calculation
 OUT 03
-HLT 99
+HLT 0
 
 # Show one as result for input case of zero for a (address 02)
 ANC 0_0
 LDK 1
 STA 03
 OUT 03
-HLT 99
+HLT 0
 
 # Show x (address 01) as result for input cas one for a (address 02)
 ANC 1_1
 OUT 01
-HLT 99
+HLT 0
 
 # Break if wrong input entered
 ANC 4_4
-HLT 99
+HLT 0

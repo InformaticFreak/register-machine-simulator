@@ -41,13 +41,13 @@ JMP 3_3
 # Output adress 01 if input is zero or one
 ANC 1_1
 OUT 01
-HLT 99
+HLT 0
 
 # Else the result of the calculation in adress 02 of the faculty is output
 ANC 2_2
 OUT 02
-HLT 99
+HLT 0
 
 # Break if wrong input entered
 ANC 4_4
-HLT 99
+HLT 0
