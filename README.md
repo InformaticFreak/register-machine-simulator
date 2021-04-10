@@ -40,8 +40,7 @@ After a while, the program returns the result as `OUT: 6`; then the program is t
 
 ### Required packages
 
-* platform
-* colorama
+* [colorama](https://pypi.org/project/colorama/)
 
 ### The syntax
 
