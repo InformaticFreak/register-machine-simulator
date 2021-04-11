@@ -16,7 +16,7 @@ py rm_simulator.py [path] [optional -p or -w] [optional time]
 
 ### Language markdown for Notepad++
 
-Append the contents of the [markdown file](rm_markdown.xml) to the file `userDefineLang.xml` in the directory `C:\Users\USERNAME\AppData\Roaming\Notepad++\`. Now select `register machine` in Notepad++ in the `Languages` menu item below.
+Append the contents of the [.rm markdown file](rm_markdown.xml) to the file `userDefineLang.xml` in the directory `C:\Users\USERNAME\AppData\Roaming\Notepad++\`. Now select `register machine` in Notepad++ in the `Languages` menu item below.
 
 ### An example: calculation of the faculty of an integer
 
