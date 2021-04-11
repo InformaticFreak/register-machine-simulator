@@ -8,7 +8,7 @@ A simulator for a simple register machine as an code interpreter written in Pyth
 
 ## How to use
 
-Execute the Python file `rm_interpreter.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `-p` as second command line parameter to get the status of the complete register machine before each instruction or `-w` for the status and an additional wait for pressing the enter key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
+Execute the Python file `rm_simulator.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `-p` as second command line parameter to get the status of the complete register machine before each instruction or `-w` for the status and an additional wait for pressing the enter key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
 
 ```
 py rm_simulator.py [path] [optional -p or -w] [optional time]
@@ -20,7 +20,7 @@ Append the contents of the [markdown file](rm_markdown.xml) to the file `userDef
 
 ### An example: calculation of the faculty of an integer
 
-The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_interpreter.py` is located in the directory `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `-p`. After each instruction the program waits 500 milliseconds (0.5 seconds).
+The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_simulator.py` is located in the directory `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `-p`. After each instruction the program waits 500 milliseconds (0.5 seconds).
 
 ```
 py rm_simulator.py ../examples/faculty.rm -p 500
