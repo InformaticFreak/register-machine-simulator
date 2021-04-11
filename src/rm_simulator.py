@@ -108,8 +108,7 @@ class RM:
 			listScreen.append(f" {sInd + fit(ind, cLen, o_pind)} | {cPmem + pmem[0] + cRes + ' ' + fit(pmem[1], cLen - 4)} | {fit(dmem, cLen)} | {fit(accu, cLen)} ")
 		if self.os == "windows": os.system("cls")
 		else: os.system("clear")
-		print("\n".join(listScreen))
-	
+		print("\n".join(listScreen))	
 	"""
 	All these methods are the implementations for the corresponding instruction name from the instruction register.
 	They change the instruction index, accumulator or data memory depending on the functionality.
