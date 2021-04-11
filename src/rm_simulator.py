@@ -16,13 +16,13 @@ class RM:
 		self.os = platform.system().lower()
 		"""Load file into the program memory"""
 		self.__pmem = []
-		self.__pmem.append(["INI", 00])
+		self.__pmem.append(["INI", 0])
 		with open(os.path.join(file_name), "r") as file:
 			lines = file.readlines()
 			list_of_code = [ line.replace("\n", "").upper().split(" ") for line in lines if not (line.replace("\n", "").startswith("#") or line.replace("\n", "") == "")]
 			list_of_tuples = [ [str(element[0]), float(element[1])] for element in list_of_code ]
 		self.__pmem.extend(list_of_tuples)
-		self.__pmem.append(["HLT", 99])
+		self.__pmem.append(["HLT", 0])
 		"""Load anchor points as a reference to the equivalent index in the program memory"""
 		self.__areg = {}
 		for i, e in enumerate(self.__pmem):
