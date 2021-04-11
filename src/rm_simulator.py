@@ -93,9 +93,11 @@ class RM:
 		cLen = 20
 		cRes = Fore.WHITE
 		listScreen = []
-		listScreen.append("")
-		listScreen.append(f" {fit('Instruction counter', cLen)} | {fit('Program memory', cLen)} | {fit('Data memory', cLen)} | {fit('Accumulator', cLen)} ")
-		listScreen.append(f"-{'-' * cLen}-+-{'-' * cLen}-+-{'-' * cLen}-+-{'-' * cLen}-")
+		listScreen.extend([
+			"",
+			f" {fit('Instruction counter', cLen)} | {fit('Program memory', cLen)} | {fit('Data memory', cLen)} | {fit('Accumulator', cLen)} ",
+			f"-{'-' * cLen}-+-{'-' * cLen}-+-{'-' * cLen}-+-{'-' * cLen}-"
+		])
 		for ind, pmem in enumerate(self.__pmem):
 			dmem, o_pind, accu, sInd = "", "l", "", Style.DIM
 			if ind < len(listScreen_dmem): dmem = listScreen_dmem[ind]
@@ -104,10 +106,9 @@ class RM:
 			try: cPmem = self.__cmdr[[ key for key in self.__cmdr if self.__pmem[ind][0] in key ][0]]
 			except: cPmem = ""
 			listScreen.append(f" {sInd + fit(ind, cLen, o_pind)} | {cPmem + pmem[0] + cRes + ' ' + fit(pmem[1], cLen - 4)} | {fit(dmem, cLen)} | {fit(accu, cLen)} ")
-		screen = "\n".join(listScreen)
 		if self.os == "windows": os.system("cls")
 		else: os.system("clear")
-		print(screen)
+		print("\n".join(listScreen))
 	
 	"""
 	All these methods are the implementations for the corresponding instruction name from the instruction register.
