@@ -182,9 +182,6 @@ class RM:
 	def __OUT(self):
 		self.__pind += 1
 		return f"OUT: {self.__dmem[self.__cpar]}"
-	def __OTA(self):
-		self.__pind += 1
-		return f"OTA: {self.__accu}"
 	"""Arithmetic operations"""
 	def __ADK(self):
 		self.__accu += self.__cpar
@@ -295,6 +292,6 @@ if __name__ == "__main__":
 			input("BRK")
 		elif error is not None and error[:3] == "OUT":
 			input(error)
-		elif error != None:
+		elif error is not None:
 			print("Unexpected error\n")
 			break

@@ -140,7 +140,7 @@ self.__creg = {
 }
 ```
 
-* Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,`
+* Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,` in [line 70](src/rm_simulator.py#L70)
 
 #### Add the associated function to the RM object
 
@@ -155,7 +155,7 @@ def __OTA(self):
 
 #### Except the error of the function within the main loop
 
-A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition. As a last condition but not unconditional is checked for `not None`, means an unexpected return.
+A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition starting at [line 282](src/rm_simulator.py#L282). As a last condition but not unconditional is checked for `not None`, means an unexpected return.
 
 Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition, because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. *(A better notation would be a concatenation of the if conditions.)* The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
 
@@ -167,14 +167,14 @@ while True:
 	elif error is not None and error[:3] == "OTA":
 		input(error)
 		...
-	elif error != None:
+	elif error is not None:
 		print("Unexpected error\n")
 		break
 ```
 
 #### Update the syntax highlighting
 
-Add the new output command in upper and lower case to the suitable group within the *markdown file* ...
+Add the new output command in upper and lower case to the suitable group within the *markdown file* in [line 33](rm_markdown.xml#L33) ...
 
 ```xml
 ...
@@ -182,7 +182,7 @@ Add the new output command in upper and lower case to the suitable group within 
 ...
 ```
 
-... and within the *command markdown register* stored in the private RM object attribute `__cmdr`.
+... and within the *command markdown register* stored in the private RM object attribute `__cmdr` in [line 77](src/rm_simulator.py#L77).
 
 ```python
 self.__cmdr = {
@@ -202,6 +202,6 @@ LDA 01
 OTA 0
 ```
 
-There is the current status of the complete register machine after the user has entered the real number '1337':
+There is the current status of the complete register machine after the user has entered the real number `1337`:
 
 ![Console of the OTA command example](examples/example_console_ota.gif)
