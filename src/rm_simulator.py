@@ -288,8 +288,9 @@ if __name__ == "__main__":
 		if error == "HLT":
 			print("Program finished\n")
 			break
-		elif error == "BRK" and arg_print:
-			input("BRK")
+		elif error == "BRK":
+			if arg_print:
+				input("BRK")
 		elif error is not None and error[:3] == "OUT":
 			input(error)
 		elif error is not None:
