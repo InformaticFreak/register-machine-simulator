@@ -136,7 +136,6 @@ The existing command `OUT` print the value from the given *addresse*, so we will
 ```python
 self.__creg = {
 	...
-	"DIP": self.__DIP,
 	"OTA": self.__OTA
 }
 ```
