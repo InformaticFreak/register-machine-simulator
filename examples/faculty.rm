@@ -28,6 +28,8 @@ JLZ 4_4
 LDA 01
 STA 02
 
+BRK 0
+
 # Calculate the faculty of the input
 ANC 3_3
 LDA 01
