@@ -129,7 +129,7 @@ For the colored commands in the console the package *colorama* is used. The colo
 
 ### An example: add a new command, that print the value from the accumulator
 
-The existing command `OUT` print the value from the given *addresse*, so we will add a new command `OTA` that print the value from the accumulator. `OTA` is inspired by "**o**u**t**put the **a**ccumulator".
+The existing command `OUT` print the value from the given *addresse*, so we will add a new command `OTA` that print the value from the accumulator. `OTA` is inspired by "**O**u**T**put the **A**ccumulator".
 
 #### Add the new command and a reference to the associated function to the command register
 
