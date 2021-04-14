@@ -155,21 +155,25 @@ def __OTA(self):
 
 #### Except the error of the function within the main loop
 
-A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition starting at [line 279](src/rm_simulator.py#L279). As a last condition but not unconditional is checked for `not None`, means an unexpected return.
+A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition starting at [line 279](src/rm_simulator.py#L279). As a last condition is checked for `not None` and exceptions starting at [line 294](src/rm_simulator.py#L294), otherwise an unexpected return occurred.
 
-Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition, because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. *(A better notation would be a concatenation of the if conditions.)* The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
+Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition in [line 294](src/rm_simulator.py#L294), because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
 
 ```python
 while True:
 	if arg_print or arg_wait:
 		rm.show()
 		...
-	elif error is not None and error[:3] == "OTA":
-		input(error)
-		...
-	elif error is not None:
-		print("Unexpected error\n")
-		break
+		elif error is not None:
+			if error[:3] == "OUT":
+				input(error)
+			...
+			elif error[:3] == "OTA":
+				input(error)
+			...
+			else:
+				print("Unexpected error\n")
+				break
 ```
 
 #### Update the syntax highlighting

@@ -291,8 +291,9 @@ if __name__ == "__main__":
 		elif error == "BRK":
 			if arg_print:
 				input("BRK")
-		elif error is not None and error[:3] == "OUT":
-			input(error)
 		elif error is not None:
-			print("Unexpected error\n")
-			break
+			if error[:3] == "OUT":
+				input(error)
+			else:
+				print("Unexpected error\n")
+				break
