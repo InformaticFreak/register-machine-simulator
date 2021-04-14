@@ -164,16 +164,16 @@ while True:
 	if arg_print or arg_wait:
 		rm.show()
 		...
-		elif error is not None:
-			if error[:3] == "OUT":
-				input(error)
-				...
-			elif error[:3] == "OTA":
-				input(error)
-				...
-			else:
-				print("Unexpected error\n")
-				break
+	elif error is not None:
+		if error[:3] == "OUT":
+			input(error)
+			...
+		elif error[:3] == "OTA":
+			input(error)
+			...
+		else:
+			print("Unexpected error\n")
+			break
 ```
 
 #### Update the syntax highlighting
