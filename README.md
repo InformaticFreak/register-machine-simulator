@@ -16,7 +16,7 @@ py rm_simulator.py [path] [optional -p or -w] [optional time]
 
 ### Language markdown for Notepad++
 
-Append the contents of the [.rm markdown file](rm_markdown.xml) to the file `userDefineLang.xml` in the directory `C:\Users\USERNAME\AppData\Roaming\Notepad++\`. Now select `register machine` in Notepad++ in the `Languages` menu item below.
+Append the contents of the markdown file [rm_markdown.xml](rm_markdown.xml) for the register machine language to the file `userDefineLang.xml` in the directory `C:\Users\USERNAME\AppData\Roaming\Notepad++\`. Now select `register machine` in Notepad++ in the `Languages` menu item below.
 
 ### An example: calculation of the faculty of an integer
 
@@ -32,7 +32,7 @@ While the program is running, the status of the complete register machine is upd
 
 There is the current status of the complete register machine after the full calculation:
 
-![Console of the faculty example](example_console_faculty.gif)
+![Console of the faculty example](examples/example_console_faculty.gif)
 
 After a while, the program returns the result as `OUT: 6`; then the program is terminated. If a wrong number is entered, no output will be printed.
 
@@ -107,3 +107,100 @@ Command | Parameter | Description
 `DIK` | *number* | Divide value from accumulator by value *number*
 `DIA` | *addresse* | Divide value from accumulator by value from *addresse*
 `DIP` | *addresse* | Divide value from accumulator by value from addresse to which *addresse* points to
+
+## Modify the command names and the functionality
+
+### Structure
+
+All command names and references to the associated functions are stored in the private RM object attribute `__creg` in [line 40](src/rm_simulator.py#L40). Each associated function is defined as a private RM object method starting at [line 117](src/rm_simulator.py#L117). This function can manipulate the accumulator stored in the private RM object attribute `__accu`, the data memory stored in the private RM object attribute `__dmem` and the instruction counter stored in the private RM object attribute `__pind`. The associated function does not have to process the command parameter, but it must always be specified (!), like for example the command `HLT` do not need a parameter, so it can be anything, here in the examples it is always zero. The current parameter is stored in the private RM object attribute `__cpar`.
+
+### The Syntax highlighting
+
+The syntax highlighting for Notepad++ was created with a tool of the software, but still colors and keywords can be changed afterwards. The keywords are grouped by functionality as is the case here in the readme.
+
+For the colored commands in the console the package *colorama* is used. The colors for the commands are stored in the private RM object attribute `__cmdr` in [line 73](src/rm_simulator.py#L73). In this dictionary, all keywords, each separated by a space, are combined into a single string, separated as the key and the colorama color as the associated value.
+
+### Hints
+
+* The command names in the command register must be in upper case
+* Because the keywords are not case-sensitive, the syntax highlighting must consider both cases in a simplified way, all letters lowercase or all letters uppercase
+* The command and associated function *may* have different names, but it is impractical
+* **Do not forget to increment the instruction counter (at the end of the function, but before the optional return)**
+
+### An example: add a new command, that print the value from the accumulator
+
+The existing command `OUT` print the value from the given *addresse*, so we will add a new command `OTA` that print the value from the accumulator. `OTA` is inspired by "**o**u**t**put the **a**ccumulator".
+
+#### Add the new command and a reference to the associated function to the command register
+
+```python
+self.__creg = {
+	...
+	"DIP": self.__DIP,
+	"OTA": self.__OTA
+}
+```
+
+* Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,`
+
+#### Add the associated function to the RM object
+
+```python
+def __OTA(self):
+	self.__pind += 1
+	return f"OTA: {self.__accu}"
+```
+
+* Increment the instruction counter at the end of the function, but before the return
+* Return a printable string including the value from the accumulator
+
+#### Except the error of the function within the main loop
+
+A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition. As a last condition but not unconditional is checked for `not None`, means an unexpected return.
+
+Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition, because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. *(A better notation would be a concatenation of the if conditions.)* The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
+
+```python
+while True:
+	...
+	elif error is not None and error[:3] == "OTA":
+		input(error)
+	...
+	elif error != None:
+		print("Unexpected error\n")
+		break
+```
+
+#### Update the syntax highlighting
+
+Add the new output command in upper and lower case to the suitable group within the *markdown file* ...
+
+```xml
+...
+<Keywords name="Keywords7">INP OUT HLT INI BRK OTA inp out hlt ini brk ota</Keywords>
+...
+```
+
+... and within the *command markdown register* stored in the private RM object attribute `__cmdr`.
+
+```python
+self.__cmdr = {
+	...
+	"INP OUT HLT INI BRK OTA inp out hlt ini brk ota": Fore.CYAN
+}
+```
+
+#### Try out your new command!
+
+```
+# Read user input and load it into the accumulator
+INP 01
+LDA 01
+
+# Print the value from the accumulator
+OTA 0
+```
+
+There is the current status of the complete register machine after the user has entered the real number '1337':
+
+![Console of the OTA command example](examples/example_console_ota.gif)

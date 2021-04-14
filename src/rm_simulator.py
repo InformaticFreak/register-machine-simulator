@@ -25,9 +25,9 @@ class RM:
 		self.__pmem.append(["HLT", 0])
 		"""Load anchor points as a reference to the equivalent index in the program memory"""
 		self.__areg = {}
-		for i, e in enumerate(self.__pmem):
-			if e[0] == "ANC":
-				self.__areg[e[1]] = i
+		for ind, cmd in enumerate(self.__pmem):
+			if cmd[0] == "ANC":
+				self.__areg[cmd[1]] = ind
 		"""Initialize the data memory as an empty dictionary and the accumulator and instruction counter with zero"""
 		self.__dmem = {}
 		self.__accu = 0
@@ -39,11 +39,14 @@ class RM:
 		self.__cpar = 0
 		self.__creg = {
 			"INI": self.__INI,
+			"HLT": self.__HLT,
+			"BRK": self.__BRK,
 			"LDK": self.__LDK,
 			"LDA": self.__LDA,
 			"LDP": self.__LDP,
 			"STA": self.__STA,
 			"STP": self.__STP,
+			"ANC": self.__ANC,
 			"JMP": self.__JMP,
 			"JEZ": self.__JEZ,
 			"JLZ": self.__JLZ,
@@ -51,7 +54,6 @@ class RM:
 			"JNE": self.__JNE,
 			"JLE": self.__JLE,
 			"JGE": self.__JGE,
-			"ANC": self.__ANC,
 			"INP": self.__INP,
 			"OUT": self.__OUT,
 			"ADK": self.__ADK,
@@ -65,9 +67,7 @@ class RM:
 			"MUP": self.__MUP,
 			"DIK": self.__DIK,
 			"DIA": self.__DIA,
-			"DIP": self.__DIP,
-			"HLT": self.__HLT,
-			"BRK": self.__BRK
+			"DIP": self.__DIP
 		}
 		"""Command markdown register"""
 		self.__cmdr = {
@@ -182,6 +182,9 @@ class RM:
 	def __OUT(self):
 		self.__pind += 1
 		return f"OUT: {self.__dmem[self.__cpar]}"
+	def __OTA(self):
+		self.__pind += 1
+		return f"OTA: {self.__accu}"
 	"""Arithmetic operations"""
 	def __ADK(self):
 		self.__accu += self.__cpar
@@ -291,6 +294,8 @@ if __name__ == "__main__":
 		elif error == "BRK" and arg_print:
 			input("BRK")
 		elif error is not None and error[:3] == "OUT":
+			input(error)
+		elif error is not None and error[:3] == "OTA":
 			input(error)
 		elif error != None:
 			print("Unexpected error\n")
