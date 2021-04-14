@@ -162,6 +162,8 @@ Our associated function returns a string starts with `OTA` and so it ist `not No
 
 ```python
 while True:
+	if arg_print or arg_wait:
+		rm.show()
 	...
 	elif error is not None and error[:3] == "OTA":
 		input(error)
