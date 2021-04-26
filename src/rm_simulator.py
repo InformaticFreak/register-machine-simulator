@@ -1,4 +1,10 @@
 
+"""
+A simple simulator for a register machine as an code interpreter written in Python.
+Copyright (c) 2021 InformaticFreak
+Version 2021.5
+"""
+
 import os, sys, time, platform
 from colorama import init, Fore, Back, Style
 init(autoreset=False)
@@ -16,18 +22,32 @@ class RM:
 		self.os = platform.system().lower()
 		"""Load file into the program memory"""
 		self.__pmem = []
-		self.__pmem.append(["INI", 0])
+		self.__pmem.append(["INI", [0]])
 		with open(os.path.join(file_name), "r") as file:
 			lines = file.readlines()
-			list_of_code = [ line.replace("\n", "").upper().split(" ") for line in lines if not (line.replace("\n", "").startswith("#") or line.replace("\n", "") == "")]
-			list_of_tuples = [ [str(element[0]), float(element[1])] for element in list_of_code ]
+			list_of_code = []
+			for line in lines:
+				line = line.replace("\n", "")
+				if not ( line.startswith("#") or line == "" ):
+					list_of_args = []
+					for e in line.upper().split(" "):
+						if e.startswith("#"):
+							break
+						elif e != "":
+							list_of_args.append(e)
+					list_of_code.append(list_of_args)
+			list_of_tuples = []
+			for element in list_of_code:
+				if len(element) == 1:
+					element.append(0)
+				list_of_tuples.append([str(element[0]), [ float(e) for e in element[1:] ] ])
 		self.__pmem.extend(list_of_tuples)
-		self.__pmem.append(["HLT", 0])
+		self.__pmem.append(["HLT", [0]])
 		"""Load anchor points as a reference to the equivalent index in the program memory"""
 		self.__areg = {}
 		for ind, cmd in enumerate(self.__pmem):
 			if cmd[0] == "ANC":
-				self.__areg[cmd[1]] = ind
+				self.__areg[cmd[1][0]] = ind
 		"""Initialize the data memory as an empty dictionary and the accumulator and instruction counter with zero"""
 		self.__dmem = {}
 		self.__accu = 0
@@ -36,7 +56,7 @@ class RM:
 		Initialize the command register in two parts. Firstly, the command parameter as an attribute and secondly, 
 		the command as a dictionary with all command names as keys and the corresponding method as an item.
 		"""
-		self.__cpar = 0
+		self.__cpar = [0]
 		self.__creg = {
 			"INI": self.__INI,
 			"HLT": self.__HLT,
@@ -71,10 +91,10 @@ class RM:
 		}
 		"""Command markdown register"""
 		self.__cmdr = {
-			"LDK LDA LDP STA STP ldk lda ldp sta stp": Fore.MAGENTA,
-			"JMP JEZ JLZ JGZ JNE JLE JGE ANC jmp jez jlz jgz jne jle jge anc": Fore.RED,
-			"ADK ADA ADP SUK SUA SUP MUK MUA MUP DIK DIA DIP adk ada adp suk sua sup muk mua mup dik dia dip": Fore.YELLOW,
-			"INP OUT HLT INI BRK inp out hlt ini brk": Fore.CYAN
+			"LDK LDA LDP STA STP": Fore.MAGENTA,
+			"JMP JEZ JLZ JGZ JNE JLE JGE ANC": Fore.RED,
+			"ADK ADA ADP SUK SUA SUP MUK MUA MUP DIK DIA DIP": Fore.YELLOW,
+			"INP OUT HLT INI BRK": Fore.CYAN
 		}
 	
 	def next(self):
@@ -105,7 +125,7 @@ class RM:
 			if ind == 0: accu = self.__accu
 			try: cPmem = self.__cmdr[[ key for key in self.__cmdr if self.__pmem[ind][0] in key ][0]]
 			except: cPmem = ""
-			listScreen.append(f" {sInd + fit(ind, cLen, o_pind)} | {cPmem + pmem[0] + cRes + ' ' + fit(pmem[1], cLen - 4)} | {fit(dmem, cLen)} | {fit(accu, cLen)} ")
+			listScreen.append(f" {sInd + fit(ind, cLen, o_pind)} | {cPmem + pmem[0] + cRes + ' ' + fit(' '.join([ str(e) for e in pmem[1] ]), cLen - 4)} | {fit(dmem, cLen)} | {fit(accu, cLen)} ")
 		if self.os == "windows": os.system("cls")
 		else: os.system("clear")
 		print("\n".join(listScreen))	
@@ -123,101 +143,101 @@ class RM:
 		return "BRK"
 	"""Load and store values"""
 	def __LDK(self):
-		self.__accu = self.__cpar
+		self.__accu = self.__cpar[0]
 		self.__pind += 1
 	def __LDA(self):
-		self.__accu = self.__dmem[self.__cpar]
+		self.__accu = self.__dmem[self.__cpar[0]]
 		self.__pind += 1
 	def __LDP(self):
-		self.__accu = self.__dmem[self.__dmem[self.__cpar]]
+		self.__accu = self.__dmem[self.__dmem[self.__cpar[0]]]
 		self.__pind += 1
 	def __STA(self):
-		self.__dmem[self.__cpar] = self.__accu
+		self.__dmem[self.__cpar[0]] = self.__accu
 		self.__pind += 1
 	def __STP(self):
-		self.__dmem[self.__dmem[self.__cpar]] = self.__accu
+		self.__dmem[self.__dmem[self.__cpar[0]]] = self.__accu
 		self.__pind += 1
 	"""Anchor points and jumps to them"""
 	def __ANC(self):
 		self.__pind += 1
 	def __JMP(self):
-		self.__pind = self.__areg[self.__cpar]
+		self.__pind = self.__areg[self.__cpar[0]]
 	def __JEZ(self):
 		if self.__accu == 0:
-			self.__pind = self.__areg[self.__cpar]
+			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
 	def __JLZ(self):
 		if self.__accu < 0:
-			self.__pind = self.__areg[self.__cpar]
+			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
 	def __JGZ(self):
 		if self.__accu > 0:
-			self.__pind = self.__areg[self.__cpar]
+			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
 	def __JNE(self):
 		if self.__accu != 0:
-			self.__pind = self.__areg[self.__cpar]
+			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
 	def __JLE(self):
 		if self.__accu <= 0:
-			self.__pind = self.__areg[self.__cpar]
+			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
 	def __JGE(self):
 		if self.__accu >= 0:
-			self.__pind = self.__areg[self.__cpar]
+			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
 	"""Read input and print output"""
 	def __INP(self):
 		try:
-			self.__dmem[self.__cpar] = float(input("INP: "))
+			self.__dmem[self.__cpar[0]] = float(input("INP: "))
 			self.__pind += 1
 		except:
 			pass
 	def __OUT(self):
 		self.__pind += 1
-		return f"OUT: {self.__dmem[self.__cpar]}"
+		return f"OUT: {self.__dmem[self.__cpar[0]]}"
 	"""Arithmetic operations"""
 	def __ADK(self):
-		self.__accu += self.__cpar
+		self.__accu += self.__cpar[0]
 		self.__pind += 1
 	def __ADA(self):
-		self.__accu += self.__dmem[self.__cpar]
+		self.__accu += self.__dmem[self.__cpar[0]]
 		self.__pind += 1
 	def __ADP(self):
-		self.__accu += self.__dmem[self.__dmem[self.__cpar]]
+		self.__accu += self.__dmem[self.__dmem[self.__cpar[0]]]
 		self.__pind += 1
 	def __SUK(self):
-		self.__accu -= self.__cpar
+		self.__accu -= self.__cpar[0]
 		self.__pind += 1
 	def __SUA(self):
-		self.__accu -= self.__dmem[self.__cpar]
+		self.__accu -= self.__dmem[self.__cpar[0]]
 		self.__pind += 1
 	def __SUP(self):
-		self.__accu -= self.__dmem[self.__dmem[self.__cpar]]
+		self.__accu -= self.__dmem[self.__dmem[self.__cpar[0]]]
 		self.__pind += 1
 	def __MUK(self):
-		self.__accu *= self.__cpar
+		self.__accu *= self.__cpar[0]
 		self.__pind += 1
 	def __MUA(self):
-		self.__accu *= self.__dmem[self.__cpar]
+		self.__accu *= self.__dmem[self.__cpar[0]]
 		self.__pind += 1
 	def __MUP(self):
-		self.__accu *= self.__dmem[self.__dmem[self.__cpar]]
+		self.__accu *= self.__dmem[self.__dmem[self.__cpar[0]]]
 		self.__pind += 1
 	def __DIK(self):
-		self.__accu /= self.__cpar
+		self.__accu /= self.__cpar[0]
 		self.__pind += 1
 	def __DIA(self):
-		self.__accu /= self.__dmem[self.__cpar]
+		self.__accu /= self.__dmem[self.__cpar[0]]
 		self.__pind += 1
 	def __DIP(self):
-		self.__accu /= self.__dmem[self.__dmem[self.__cpar]]
+		self.__accu /= self.__dmem[self.__dmem[self.__cpar[0]]]
 		self.__pind += 1
 
 def fit(text, length, orientation="l", fillCharakter=" ", endCharakter=" ..."):
@@ -258,9 +278,9 @@ if __name__ == "__main__":
 			arg_wait = True
 		else:
 			raise ValueError
-	if arg_print or arg_wait:
-		if platform.system().lower() == "windows":
-			os.system("mode con cols=100")
+	# if arg_print or arg_wait:
+		# if platform.system().lower() == "windows":
+			# os.system("mode con cols=100")
 	"""3rd argument"""
 	arg_time = 0.01
 	if len(sys.argv) >= 4:
