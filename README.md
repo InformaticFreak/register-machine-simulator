@@ -6,6 +6,10 @@
 
 A simulator for a simple register machine as an code interpreter written in Python. The register machine language defines 30 different commands for basic input, output and arithmetic operations. See [here](README.md#required-packages) for the required packages.
 
+See the change log [here](CHANGELOG.md) and [send Feedback](https://forms.office.com/r/AcCacrp6j8).
+
+Developed by InformaticFreak (c) 2021
+
 ## How to use
 
 Execute the Python file `rm_simulator.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `-p` as second command line parameter to get the status of the complete register machine before each instruction or `-w` for the status and an additional wait for pressing the enter key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
