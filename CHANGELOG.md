@@ -16,8 +16,8 @@
 
 ## 0.0.2
 
-* Writing a complete (readme)[README.md]
-* Added a (markdown file)[rm_markdown.xml] for the register machine language for Notepad++
+* Writing a complete [readme](README.md)
+* Added a [markdown file](rm_markdown.xml) for the register machine language for Notepad++
 
 ## 0.0.1
 
