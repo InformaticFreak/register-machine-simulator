@@ -1,13 +1,17 @@
 
-"""
-A simple simulator for a register machine as an code interpreter written in Python.
-Copyright (c) 2021 InformaticFreak
-Version 2021.5
-"""
+import time
+import sys
+import os
 
-import os, sys, time, platform
 from colorama import init, Fore, Back, Style
 init(autoreset=False)
+
+
+__project__ = "Register Machine Simulator"
+__version__ = "2021.6"
+__author__ = "InformaticFreak"
+__description__ = "A simple simulator for a register machine as an code interpreter written in Python."
+
 
 class RM:
 	"""
@@ -19,8 +23,9 @@ class RM:
 	 - Data memory as dictionary of index and value
 	"""
 	def __init__(self, file_name):
-		self.os = platform.system().lower()
-		"""Load file into the program memory"""
+		"""
+		Load file into the program memory
+		"""
 		self.__pmem = []
 		self.__pmem.append(["INI", [0]])
 		with open(os.path.join(file_name), "r") as file:
@@ -43,18 +48,21 @@ class RM:
 				list_of_tuples.append([str(element[0]), [ float(e) for e in element[1:] ] ])
 		self.__pmem.extend(list_of_tuples)
 		self.__pmem.append(["HLT", [0]])
-		"""Load anchor points as a reference to the equivalent index in the program memory"""
+		"""
+		Load anchor points as a reference to the equivalent index in the program memory
+		"""
 		self.__areg = {}
 		for ind, cmd in enumerate(self.__pmem):
 			if cmd[0] == "ANC":
 				self.__areg[cmd[1][0]] = ind
-		"""Initialize the data memory as an empty dictionary and the accumulator and instruction counter with zero"""
+		"""
+		Initialize the data memory as an empty dictionary and the accumulator and instruction counter with zero
+		"""
 		self.__dmem = {}
 		self.__accu = 0
 		self.__pind = 0
 		"""
-		Initialize the command register in two parts. Firstly, the command parameter as an attribute and secondly, 
-		the command as a dictionary with all command names as keys and the corresponding method as an item.
+		Initialize the command register in two parts. Firstly, the command parameter as an attribute and secondly, the command as a dictionary with all command names as keys and the corresponding method as an item.
 		"""
 		self.__cpar = [0]
 		self.__creg = {
@@ -89,7 +97,9 @@ class RM:
 			"DIA": self.__DIA,
 			"DIP": self.__DIP
 		}
-		"""Command markdown register"""
+		"""
+		Command markdown register
+		"""
 		self.__cmdr = {
 			"LDK LDA LDP STA STP": Fore.MAGENTA,
 			"JMP JEZ JLZ JGZ JNE JLE JGE ANC": Fore.RED,
@@ -98,17 +108,23 @@ class RM:
 		}
 	
 	def next(self):
-		"""Read the current command name and command parameter from the program memory and execute the command."""
+		"""
+		Read the current command name and command parameter from the program memory and execute the command.
+		"""
 		cmd, par = self.__pmem[self.__pind]
 		self.__cpar = par
 		return self.__creg[cmd]()
 	
 	def status(self):
-		"""Return the complete status of the register machine"""
+		"""
+		Return the complete status of the register machine
+		"""
 		return {"dmem": self.__dmem, "pmem": self.__pmem, "accu": self.__accu, "pind": self.__pind, "cpar": self.__cpar, "creg": self.__creg, "areg": self.__areg}
 	
 	def show(self):
-		"""Show the status of the register machine"""
+		"""
+		Show the status of the register machine
+		"""
 		listScreen_dmem = [ f"{dmem}: {self.__dmem[dmem]}" for dmem in self.__dmem ]
 		cLen = 20
 		cRes = Fore.WHITE
@@ -120,20 +136,31 @@ class RM:
 		])
 		for ind, pmem in enumerate(self.__pmem):
 			dmem, o_pind, accu, sInd = "", "l", "", Style.DIM
-			if ind < len(listScreen_dmem): dmem = listScreen_dmem[ind]
-			if ind == self.__pind: o_pind = "r"; sInd = Style.BRIGHT
-			if ind == 0: accu = self.__accu
-			try: cPmem = self.__cmdr[[ key for key in self.__cmdr if self.__pmem[ind][0] in key ][0]]
-			except: cPmem = ""
+			if ind < len(listScreen_dmem):
+				dmem = listScreen_dmem[ind]
+			if ind == self.__pind:
+				o_pind = "r"; sInd = Style.BRIGHT
+			if ind == 0:
+				accu = self.__accu
+			try:
+				cPmem = self.__cmdr[[ key for key in self.__cmdr if self.__pmem[ind][0] in key ][0]]
+			except:
+				cPmem = ""
 			listScreen.append(f" {sInd + fit(ind, cLen, o_pind)} | {cPmem + pmem[0] + cRes + ' ' + fit(' '.join([ str(e) for e in pmem[1] ]), cLen - 4)} | {fit(dmem, cLen)} | {fit(accu, cLen)} ")
-		if self.os == "windows": os.system("cls")
-		else: os.system("clear")
-		print("\n".join(listScreen))	
+		if os.name == "nt":
+			os.system("cls")
+		else:
+			os.system("clear")
+		print("\n".join(listScreen))
+	
 	"""
 	All these methods are the implementations for the corresponding instruction name from the instruction register.
 	They change the instruction index, accumulator or data memory depending on the functionality.
 	"""
-	"""Start and terminate the program"""
+	
+	"""
+	Start and terminate the program
+	"""
 	def __INI(self):
 		self.__pind += 1
 	def __HLT(self):
@@ -141,7 +168,9 @@ class RM:
 	def __BRK(self):
 		self.__pind += 1
 		return "BRK"
-	"""Load and store values"""
+	"""
+	Load and store values
+	"""
 	def __LDK(self):
 		self.__accu = self.__cpar[0]
 		self.__pind += 1
@@ -157,7 +186,9 @@ class RM:
 	def __STP(self):
 		self.__dmem[self.__dmem[self.__cpar[0]]] = self.__accu
 		self.__pind += 1
-	"""Anchor points and jumps to them"""
+	"""
+	Anchor points and jumps to them
+	"""
 	def __ANC(self):
 		self.__pind += 1
 	def __JMP(self):
@@ -192,17 +223,21 @@ class RM:
 			self.__pind = self.__areg[self.__cpar[0]]
 		else:
 			self.__pind += 1
-	"""Read input and print output"""
+	"""
+	Read input and print output
+	"""
 	def __INP(self):
 		try:
 			self.__dmem[self.__cpar[0]] = float(input("INP: "))
 			self.__pind += 1
-		except:
-			pass
+		except ValueError:
+			return None
 	def __OUT(self):
 		self.__pind += 1
 		return f"OUT: {self.__dmem[self.__cpar[0]]}"
-	"""Arithmetic operations"""
+	"""
+	Arithmetic operations
+	"""
 	def __ADK(self):
 		self.__accu += self.__cpar[0]
 		self.__pind += 1
@@ -241,7 +276,9 @@ class RM:
 		self.__pind += 1
 
 def fit(text, length, orientation="l", fillCharakter=" ", endCharakter=" ..."):
-	"""Return input text, but cut to a maximum length"""
+	"""
+	Return input text, but cut to a maximum length
+	"""
 	text, length, fillCharakter = str(text), int(length), str(fillCharakter)
 	if len(text) <= length:
 		orientation = orientation.lower()[0]
@@ -264,12 +301,16 @@ Command line arguments:
 """
 
 if __name__ == "__main__":
-	"""1st argument"""
+	"""
+	1st argument
+	"""
 	if len(sys.argv) >= 2:
 		arg_file = str(sys.argv[1])
 	else:
 		raise AttributeError
-	"""2nd argument"""
+	"""
+	2nd argument
+	"""
 	arg_print, arg_wait = False, False
 	if len(sys.argv) >= 3:
 		if sys.argv[2] == "-p":
@@ -279,9 +320,11 @@ if __name__ == "__main__":
 		else:
 			raise ValueError
 	# if arg_print or arg_wait:
-		# if platform.system().lower() == "windows":
+		# if os.name == "nt":
 			# os.system("mode con cols=100")
-	"""3rd argument"""
+	"""
+	3rd argument
+	"""
 	arg_time = 0.01
 	if len(sys.argv) >= 4:
 		if sys.argv[3].isdigit():
@@ -292,10 +335,14 @@ if __name__ == "__main__":
 		else:
 			raise ValueError
 
-	"""Mainloop"""
+	"""
+	Mainloop
+	"""
 	rm = RM(arg_file)
 	while True:
-		"""Printing the status"""
+		"""
+		Printing the status
+		"""
 		if arg_print or arg_wait:
 			rm.show()
 		if arg_wait:
@@ -303,7 +350,9 @@ if __name__ == "__main__":
 		elif arg_print:
 			print()
 			time.sleep(arg_time)
-		"""Execute next command"""
+		"""
+		Execute next command
+		"""
 		error = rm.next()
 		if error == "HLT":
 			print("Program finished\n")
