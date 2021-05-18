@@ -116,13 +116,13 @@ Command | Parameter | Description
 
 ### Structure
 
-All command names and references to the associated functions are stored in the private RM object attribute `__creg` in [line 68](src/rm_simulator.py#L68). Each associated function is defined as a private RM object method starting at [line 156](src/rm_simulator.py#L156). This function can manipulate the accumulator stored in the private RM object attribute `__accu`, the data memory stored in the private RM object attribute `__dmem` and the instruction counter stored in the private RM object attribute `__pind`. The associated function does not have to process the command parameter, but it must always be specified (!), like for example the command `HLT` do not need a parameter, so it can be anything, here in the examples it is always zero. The current parameter is stored in the private RM object attribute `__cpar`.
+All command names and references to the associated functions are stored in the private RM object attribute `__creg` in [line 57](src/rm_simulator.py#L57). Each associated function is defined as a private RM object method starting at [line 130](src/rm_simulator.py#L130). This function can manipulate the accumulator stored in the private RM object attribute `__accu`, the data memory stored in the private RM object attribute `__dmem` and the instruction counter stored in the private RM object attribute `__pind`. The associated function does not have to process the command parameter, but it must always be specified (!), like for example the command `HLT` do not need a parameter, so it can be anything, here in the examples it is always zero. The current parameter is stored in the private RM object attribute `__cpar`.
 
 ### The Syntax highlighting
 
 The syntax highlighting for Notepad++ was created with a tool of the software, but still colors and keywords can be changed afterwards. The keywords are grouped by functionality as is the case here in the readme.
 
-For the colored commands in the console the package *colorama* is used. The colors for the commands are stored in the private RM object attribute `__cmdr` in [line 103](src/rm_simulator.py#L103). In this dictionary, all keywords, each separated by a space, are combined into a single string, separated as the key and the colorama color as the associated value.
+For the colored commands in the console the package *colorama* is used. The colors for the commands are stored in the private RM object attribute `__cmdr` in [line 90](src/rm_simulator.py#L90). In this dictionary, all keywords, each separated by a space, are combined into a single string, separated as the key and the colorama color as the associated value.
 
 ### Hints
 
@@ -144,7 +144,7 @@ self.__creg = {
 }
 ```
 
-* Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,` in [line 98](src/rm_simulator.py#L98)
+* Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,` in [line 87](src/rm_simulator.py#L87)
 
 #### Add the associated function to the RM object
 
@@ -159,9 +159,9 @@ def __OTA(self):
 
 #### Except the error of the function within the main loop
 
-A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition starting at [line 357](src/rm_simulator.py#L357). As a last condition is checked for `not None` and exceptions starting at [line 363](src/rm_simulator.py#L363), otherwise an unexpected return occurred.
+A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition starting at [line 307](src/rm_simulator.py#L307). As a last condition is checked for `not None` and exceptions starting at [line 313](src/rm_simulator.py#L313), otherwise an unexpected return occurred.
 
-Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition in [line 363](src/rm_simulator.py#L363), because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
+Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition in [line 313](src/rm_simulator.py#L313), because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
 
 ```python
 while True:
