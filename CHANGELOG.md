@@ -1,6 +1,10 @@
 
 # CHANGE LOG
 
+## 2021.6
+
+* Some minor changes
+
 ## 2021.5
 
 * Version system changed
