@@ -3,6 +3,7 @@
 
 ## 2021.6
 
+* First GitHub release
 * Some minor changes
 
 ## 2021.5
