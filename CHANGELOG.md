@@ -22,7 +22,7 @@
 ## 0.0.2
 
 * Writing a complete [readme](README.md)
-* Added a [markdown file](rm_markdown.xml) for the register machine language for Notepad++
+* Added a [markdown file](rm_markdown.xml) for the register machine language for [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus)
 
 ## 0.0.1
 
