@@ -3,7 +3,7 @@
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-green)](LICENSE.txt)&nbsp;
 [![Python Version](https://img.shields.io/badge/python-3-blue)](https://www.python.org/downloads/)&nbsp;
-[![Last Release](https://img.shields.io/badge/last%20release-v2021.6-blue)](https://github.com/InformaticFreak/register-machine-simulator/releases/tag/2021.6)&nbsp;
+[![GitHub release](https://img.shields.io/github/v/release/informaticfreak/register-machine-simulator)(https://github.com/InformaticFreak/register-machine-simulator/releases/tag/2021.6)&nbsp;
 [![CodeFactor](https://www.codefactor.io/repository/github/informaticfreak/register-machine-simulator/badge/main)](https://www.codefactor.io/repository/github/informaticfreak/register-machine-simulator/overview/main)&nbsp;
 
 A simulator for a simple register machine as an code interpreter written in Python. The register machine language defines 30 different commands for basic input, output and arithmetic operations. See [here](README.md#required-packages) for the required packages.
