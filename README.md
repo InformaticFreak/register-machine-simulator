@@ -9,7 +9,7 @@
 
 A simulator for a simple register machine as an code interpreter written in Python. The register machine language defines 30 different commands for basic input, output and arithmetic operations. See [here](README.md#required-packages) for the required packages.
 
-See the change log [here](CHANGELOG.md) and [send Feedback](https://forms.office.com/r/AcCacrp6j8).
+See the change log [here](CHANGELOG.md).
 
 Developed by InformaticFreak (c) 2021
 
