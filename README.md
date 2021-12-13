@@ -15,7 +15,7 @@ Developed by InformaticFreak (c) 2021
 
 ## How to use
 
-Execute the Python file `rm_simulator.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `p` as second command line parameter to get the status of the complete register machine before each instruction or `w` for the status and an additional wait for pressing the enter key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
+Execute the Python file `rm_simulator.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `p` as second command line parameter to get the status of the complete register machine before each instruction or `w` for the status and an additional wait for pressing the <kbd>ENTER</kbd> key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
 
 ```
 py rm_simulator.py [path] [optional p or w] [optional time]
