@@ -1,0 +1,34 @@
+
+# Multiplication of two positive integers: a * b
+
+# input
+INP 01 #a
+INP 02 #b
+
+# c = b
+LDA 02
+STA 03 #c
+
+# a -= 1
+LDA 01
+SUK 1
+STA 01
+
+# while a != 0
+ANC 1_1
+LDA 01
+JEZ 1_2
+# b += c
+LDA 02
+ADA 03
+STA 02
+# a -= 1
+LDA 01
+SUK 1
+STA 01
+# end while
+JMP 1_1
+ANC 1_2
+
+# output
+OUT 02

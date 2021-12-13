@@ -5,7 +5,7 @@ init(autoreset=False)
 
 
 __project__ = "Register Machine Simulator"
-__version__ = "2021.6"
+__version__ = "2021.7"
 __author__ = "InformaticFreak"
 __description__ = "A simple simulator for a register machine as an code interpreter written in Python."
 
@@ -94,7 +94,7 @@ class RM:
 			"INP OUT HLT INI BRK": Fore.CYAN
 		}
 	
-	def next(self):
+	def execute(self):
 		"""Read the current command name and command parameter from the program memory and execute the command"""
 		cmd, par = self.__pmem[self.__pind]
 		self.__cpar = par
@@ -136,10 +136,10 @@ class RM:
 	def __INI(self):
 		self.__pind += 1
 	def __HLT(self):
-		return "HLT"
+		return 0
 	def __BRK(self):
 		self.__pind += 1
-		return "BRK"
+		return 1
 	"""Load and store values"""
 	def __LDK(self):
 		self.__accu = self.__cpar[0]
@@ -200,7 +200,7 @@ class RM:
 			pass
 	def __OUT(self):
 		self.__pind += 1
-		return f"OUT: {self.__dmem[self.__cpar[0]]}"
+		input(f"OUT: {self.__dmem[self.__cpar[0]]}\n")
 	"""Arithmetic operations"""
 	def __ADK(self):
 		self.__accu += self.__cpar[0]
@@ -258,8 +258,8 @@ def fit(text, length, orientation="l", fillCharakter=" ", endCharakter=" ..."):
 """
 Command line arguments:
  1st: path to the .rm code file
- 2nd: "-p" (printing of the status of the accumulator and the instruction counter) OR "-w" (printing the status ~ and wait for enter)
- 3rd: time in millisecons between commands for print mode "-p"
+ 2nd: "p" (printing of the status of the accumulator and the instruction counter) OR "w" (printing the status ~ and wait for enter)
+ 3rd: time in millisecons between commands for print mode "p"
 """
 
 if __name__ == "__main__":
@@ -271,9 +271,9 @@ if __name__ == "__main__":
 	"""2nd argument"""
 	arg_print, arg_wait = False, False
 	if len(sys.argv) >= 3:
-		if sys.argv[2] == "-p":
+		if sys.argv[2] == "p":
 			arg_print = True
-		elif sys.argv[2] == "-w":
+		elif sys.argv[2] == "w":
 			arg_wait = True
 		else:
 			raise ValueError
@@ -303,16 +303,15 @@ if __name__ == "__main__":
 			print()
 			time.sleep(arg_time)
 		"""Execute next command"""
-		error = rm.next()
-		if error == "HLT":
+		errorCode = rm.execute()
+		if errorCode is None:
+			pass
+		elif errorCode == 0:
 			print("Program finished\n")
 			break
-		elif error == "BRK":
+		elif errorCode == 1:
 			if arg_print:
 				input("BRK")
-		elif error is not None:
-			if error[:3] == "OUT":
-				input(error)
-			else:
-				print("Unexpected error\n")
-				break
+		else:
+			print("Unexpected error\n")
+			break

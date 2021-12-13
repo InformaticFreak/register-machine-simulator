@@ -1,6 +1,11 @@
 
 # CHANGE LOG
 
+## 2021.7
+
+* Better implementation of error codes
+* Added first version of [markdown file for dark mode](rm_markdown_DM.xml) for [Notepad++](https://github.com/notepad-plus-plus/notepad-plus-plus)
+
 ## 2021.6
 
 * First GitHub release

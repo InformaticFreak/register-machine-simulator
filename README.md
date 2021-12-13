@@ -18,19 +18,19 @@ Developed by InformaticFreak (c) 2021
 Execute the Python file `rm_simulator.py` via the console/terminal and as a first command line parameter pass the path to the `.rm` code file. Optionally add a `-p` as second command line parameter to get the status of the complete register machine before each instruction or `-w` for the status and an additional wait for pressing the enter key to continue after each instruction. Also optionally add a wait time in milliseconds between each instruction as the last command line parameter, ten milliseconds is default.
 
 ```
-py rm_simulator.py [path] [optional -p or -w] [optional time]
+py rm_simulator.py [path] [optional p or w] [optional time]
 ```
 
 ### Language markdown for Notepad++
 
-Append the contents of the markdown file [rm_markdown.xml](rm_markdown.xml) for the register machine language to the file `userDefineLang.xml` in the directory `C:\Users\USERNAME\AppData\Roaming\Notepad++\`. Now select `register machine` in Notepad++ in the `Languages` menu item below.
+Copy the markdown files [rm_markdown.xml](rm_markdown.xml) and [rm_markdown_DM.xml](rm_markdown_DM.xml) for the register machine language in the directory `C:\Users\%USERNAME%\AppData\Roaming\Notepad++\userDefineLangs\`. Now select `register machine` or `register machine (dark mode)` in Notepad++ in the `Languages` menu item below.
 
 ### An example: calculation of the faculty of an integer
 
-The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_simulator.py` is located in the directory `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `-p`. After each instruction the program waits 500 milliseconds (0.5 seconds).
+The file `examples/faculty.rm` contains the code for the calculation, click [here](examples/faculty.rm) to open it. Because the source file `rm_simulator.py` is located in the directory `src` the relative path to the example file is `../examples/faculty.rm`. To see the status of the register machine while the program is running, the last parameter is `p`. After each instruction the program waits 500 milliseconds (0.5 seconds).
 
 ```
-py rm_simulator.py ../examples/faculty.rm -p 500
+py rm_simulator.py ../examples/faculty.rm p 500
 ```
 
 So after the start of the program, the program waits with printing `INP: `&nbsp;for the input of a number to calculate its faculty. You can also enter a decimal number or a negative number, but an integer is required. This wrong inputs are intercepted by the register machine program code in [line 13](examples/faculty.rm#L13) and [line 17](examples/faculty.rm#L17). In this case the input number is `3`.
@@ -47,73 +47,73 @@ After a while, the program returns the result as `OUT: 6`; then the program is t
 
 ### Required packages
 
-* [colorama](https://pypi.org/project/colorama/)
+- [colorama](https://pypi.org/project/colorama/)
 
 ### The syntax
 
-* A command is composed of a three character long keyword and a number as parameter separated by a space character&nbsp;` `
-* A comment starts with an hashtag character&nbsp;`#`&nbsp;at the beginning of a line or behind a command, separated by a space character&nbsp;` `
-* Only one command per line and any number of blank lines are allowed
-* The keywords are not case sensitve
-* A Parameter is always a number, it can contain underscores&nbsp;`_`&nbsp;*(but not more than one in a sequence)* and any number of zeros&nbsp;`0`, a dot&nbsp;`.`&nbsp;as decimal point also works
-* A program is terminated with the command&nbsp;`HLT 0`, if this command is not in the last line of the program at the latest, it terminates anyway
+- A command is composed of a three character long keyword and a number as parameter separated by a space character&nbsp;` `
+- A comment starts with an hashtag character&nbsp;`#`&nbsp;at the beginning of a line or behind a command, separated by a space character&nbsp;` `
+- Only one command per line and any number of blank lines are allowed
+- The keywords are not case sensitve
+- A Parameter is always a number, it can contain underscores&nbsp;`_`&nbsp;*(but not more than one in a sequence)* and any number of zeros&nbsp;`0`, a dot&nbsp;`.`&nbsp;as decimal point also works
+- A program is terminated with the command&nbsp;`HLT 0`, if this command is not in the last line of the program at the latest, it terminates anyway
 
 ### All 30 commands
 
 #### Start and terminate the program
 
-Command | Parameter | Description
-------- | ---------- | -----------
-`INI` | 0 | No functionality (internal use only)
-`HTL` | 0 | Terminate the program
-`BRK` | 0 | Breakpoint for debugging
+| Command | Parameter | Description |
+|---|---|---|
+| `INI` | 0 | No functionality (internal use only) |
+| `HTL` | 0 | Terminate the program |
+| `BRK` | 0 | Breakpoint for debugging |
 
 #### Load and store values
 
-Command | Parameter | Description
-------- | --------- | -----------
-`LDK` | *number* | Load value *number* in accumulator
-`LDA` | *addresse* | Load value from *addresse* in accumulator
-`LDP` | *addresse* | Load value from address to which *address* points into accumulator
-`STA` | *addresse* | Store value from accumulator in *addresse*
-`STP` | *addresse* | Store value from accumulator in addresse, where *address* points to
+| Command | Parameter | Description |
+|---|---|---|
+| `LDK` | *number* | Load value *number* in accumulator |
+| `LDA` | *addresse* | Load value from *addresse* in accumulator |
+| `LDP` | *addresse* | Load value from address to which *address* points into accumulator |
+| `STA` | *addresse* | Store value from accumulator in *addresse* |
+| `STP` | *addresse* | Store value from accumulator in addresse, where *address* points to |
 
 #### Anchor points and jumps to them
 
-Command | Parameter | Description
-------- | --------- | -----------
-`ANC` | *anchor* | Anchor point with *anchor* as id
-`JMP` | *anchor* | Unconditional jump to *anchor*
-`JEZ` | *anchor* | Conditional jump to *anchor*, if value from accumulator is equal to zero
-`JLZ` | *anchor* | Conditional jump to *anchor*, if value from accumulator is less than zero
-`JGZ` | *anchor* | Conditional jump to *anchor*, if value from accumulator is greater than zero
-`JNE` | *anchor* | Conditional jump to *anchor*, if value from accumulator is not equal to zero
-`JLE` | *anchor* | Conditional jump to *anchor*, if value from accumulator is less than or equal to zero
-`JGE` | *anchor* | Conditional jump to *anchor*, if value from accumulator is greater than or equal to zero
+| Command | Parameter | Description |
+|---|---|---|
+| `ANC` | *anchor* | Anchor point with *anchor* as id |
+| `JMP` | *anchor* | Unconditional jump to *anchor* |
+| `JEZ` | *anchor* | Conditional jump to *anchor*, if value from accumulator is equal to zero |
+| `JLZ` | *anchor* | Conditional jump to *anchor*, if value from accumulator is less than zero |
+| `JGZ` | *anchor* | Conditional jump to *anchor*, if value from accumulator is greater than zero |
+| `JNE` | *anchor* | Conditional jump to *anchor*, if value from accumulator is not equal to zero |
+| `JLE` | *anchor* | Conditional jump to *anchor*, if value from accumulator is less than or equal to zero |
+| `JGE` | *anchor* | Conditional jump to *anchor*, if value from accumulator is greater than or equal to zero |
 
 #### Read input and print output
 
-Command | Parameter | Description
-------- | --------- | -----------
-`INP` | *addresse* | Wait for user input with `INP: `&nbsp;and store the entered number in *addresse*
-`OUT` | *addresse* | Print value from *addresse*
+| Command | Parameter | Description |
+|---|---|---|
+| `INP` | *addresse* | Wait for user input with `INP: `&nbsp;and store the entered number in *addresse* |
+| `OUT` | *addresse* | Print value from *addresse* |
 
 #### Arithmetic operations
 
-Command | Parameter | Description
-------- | --------- | -----------
-`ADK` | *number* | Add value *number* to value from accumulator
-`ADA` | *addresse* | Add value from *addresse* to value from accumulator
-`ADP` | *addresse* | Add value from addresse to which *addresse* points to value from accumulator
-`SUK` | *number* | Subtract value *number* from value from accumulator
-`SUA` | *addresse* | Subtract value from *addresse* from value from accumulator
-`SUP` | *addresse* | Subtract value from addresse to which *addresse* points from value from accumulator
-`MUK` | *number* | Multiply value *number* by value from accumulator
-`MUA` | *addresse* | Multiply value from *addresse* by value from accumulator
-`MUP` | *addresse* | Multiply value from addresse to which *addresse* points by value from accumulator
-`DIK` | *number* | Divide value from accumulator by value *number*
-`DIA` | *addresse* | Divide value from accumulator by value from *addresse*
-`DIP` | *addresse* | Divide value from accumulator by value from addresse to which *addresse* points to
+| Command | Parameter | Description |
+|---|---|---|
+| `ADK` | *number* | Add value *number* to value from accumulator |
+| `ADA` | *addresse* | Add value from *addresse* to value from accumulator |
+| `ADP` | *addresse* | Add value from addresse to which *addresse* points to value from accumulator |
+| `SUK` | *number* | Subtract value *number* from value from accumulator |
+| `SUA` | *addresse* | Subtract value from *addresse* from value from accumulator |
+| `SUP` | *addresse* | Subtract value from addresse to which *addresse* points from value from accumulator |
+| `MUK` | *number* | Multiply value *number* by value from accumulator |
+| `MUA` | *addresse* | Multiply value from *addresse* by value from accumulator |
+| `MUP` | *addresse* | Multiply value from addresse to which *addresse* points by value from accumulator |
+| `DIK` | *number* | Divide value from accumulator by value *number* |
+| `DIA` | *addresse* | Divide value from accumulator by value from *addresse* |
+| `DIP` | *addresse* | Divide value from accumulator by value from addresse to which *addresse* points to |
 
 ## Modify the command names and the functionality
 
@@ -129,10 +129,10 @@ For the colored commands in the console the package *colorama* is used. The colo
 
 ### Hints
 
-* The command names in the command register must be in upper case
-* Because the keywords are not case-sensitive, the syntax highlighting must consider both cases in a simplified way, all letters lowercase or all letters uppercase
-* The command and associated function *may* have different names, but it is impractical
-* **Do not forget to increment the instruction counter (at the end of the function, but before the optional return)**
+- The command names in the command register must be in upper case
+- Because the keywords are not case-sensitive, the syntax highlighting must consider both cases in a simplified way, all letters lowercase or all letters uppercase
+- The command and associated function *may* have different names, but it is impractical
+- **Do not forget to increment the instruction counter (at the end of the function, but before the optional return)**
 
 ### An example: add a new command, that print the value from the accumulator
 
@@ -147,41 +147,24 @@ self.__creg = {
 }
 ```
 
-* Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,` in [line 87](src/rm_simulator.py#L87)
+- Do not forget to put the comma `,` after the last entry, here after the `"DIP": self.__DIP,` in [line 87](src/rm_simulator.py#L87)
 
 #### Add the associated function to the RM object
 
 ```python
 def __OTA(self):
 	self.__pind += 1
-	return f"OTA: {self.__accu}"
+	input(f"OTA: {self.__accu}\n")
 ```
 
-* Increment the instruction counter at the end of the function, but before the return
-* Return a printable string including the value from the accumulator
+- Increment the instruction counter at the end of the function, but before an optional return of an error code
+- Print the value from the accumulator, but use the `input()` function so that the programm waits until the user hits the `ENTER` key
 
-#### Except the error of the function within the main loop
+#### Error Codes
 
-A function that has no return value returns a `None`. So if a function does not return `None`, either an error has occurred or an expected value is returned. These expected returns are processed within an if condition starting at [line 307](src/rm_simulator.py#L307). As a last condition is checked for `not None` and exceptions starting at [line 313](src/rm_simulator.py#L313), otherwise an unexpected return occurred.
+Each function returns `None`, if nothing more specific is defined and nothing special happens. If the `errorCode` is 0 the program terminates, if the `errorCode` is 1 the program waits if it should; otherwise an unexpected error code occurs.
 
-Our associated function returns a string starts with `OTA` and so it ist `not None`. The `not None` is required as first condition in [line 313](src/rm_simulator.py#L313), because if the error would be `None`, `[:3]` does not work for NoneType and the programm terminates with a real error. The output of the associated function is printed by the print function, but the program should wait until the user enters, so we directly use the input function.
-
-```python
-while True:
-	if arg_print or arg_wait:
-		rm.show()
-		...
-	elif error is not None:
-		if error[:3] == "OUT":
-			input(error)
-			...
-		elif error[:3] == "OTA":
-			input(error)
-			...
-		else:
-			print("Unexpected error\n")
-			break
-```
+To add custom error codes, you must add a new `elif` condition with your custom code after [line 314](src/rm_simulator.py#L314).
 
 #### Update the syntax highlighting
 
