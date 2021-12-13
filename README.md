@@ -158,7 +158,7 @@ def __OTA(self):
 ```
 
 - Increment the instruction counter at the end of the function, but before an optional return of an error code
-- Print the value from the accumulator, but use the `input()` function so that the programm waits until the user hits the `ENTER` key
+- Print the value from the accumulator, but use the `input()` function so that the programm waits until the user hits the <kbd>ENTER</kbd> key
 
 #### Error Codes
 
