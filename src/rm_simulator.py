@@ -200,7 +200,7 @@ class RM:
 			pass
 	def __OUT(self):
 		self.__pind += 1
-		input(f"OUT: {self.__dmem[self.__cpar[0]]}\n")
+		input(f"OUT: {self.__dmem[self.__cpar[0]]}")
 	"""Arithmetic operations"""
 	def __ADK(self):
 		self.__accu += self.__cpar[0]
